@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card danger-card">
+    <h2>Delete URL</h2>
+
+    <p>Are you sure you want to delete this short URL?</p>
+
+    <strong>{{ object.short_code }}</strong>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

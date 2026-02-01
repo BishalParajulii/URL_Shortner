@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- SHORTEN URL BOX -->
+    <div class="card shorten-box">
+        <h2>🔗 Shorten a URL</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="url" name="original_url" placeholder="Paste long URL here..." required>
+                <button class="btn primary">Shorten</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- MY URLS BOX -->
+    <div class="card urls-box">
+        <h2>📂 My URLs</h2>
+
+        {% for url in urls %}
+        <div class="url-card">
+
+            <div class="url-main">
+                <a href="/{{ url.short_code }}" target="_blank" class="short-url">
+                    {{request.get_host}}/{{ url.short_code }}
+                </a>
+                <p class="original-url">{{ url.original_url }}</p>
+            </div>
+
+            <div class="url-stats">
+                <span class="clicks">👁 {{ url.click_count }} clicks</span>
+
+                {% if url.is_expired %}
+                    <span class="status expired">Expired</span>
+                {% else %}
+                    <span class="status active">Active</span>
+                {% endif %}
+            </div>
+
+            <div class="url-actions">
+                <a href="{% url 'edit_url' url.id %}" class="btn small edit">Edit</a>
+                <a href="{% url 'delete_url' url.id %}" class="btn small delete">Delete</a>
+            </div>
+
+        </div>
+        {% empty %}
+            <p class="empty">No URLs created yet.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

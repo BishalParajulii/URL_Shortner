@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+/* =======================
+   AUTH PAGE STYLES
+======================= */
+
+.auth-wrapper {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+}
+
+/* Card */
+.auth-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    animation: fadeUp 0.4s ease;
+}
+
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    color: #1f2937;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+/* Form */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.auth-form input {
+    padding: 14px 16px;
+    font-size: 15px;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+    background: #f9fafb;
+    transition: all 0.25s ease;
+}
+
+.auth-form input::placeholder {
+    color: #9ca3af;
+}
+
+.auth-form input:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+}
+
+/* Button */
+.auth-btn {
+    margin-top: 8px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.auth-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.35);
+}
+
+/* Footer */
+.auth-footer {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 28px;
+    }
+}
+</style>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2>Create Account</h2>
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+
+            <button type="submit" class="auth-btn">Create Account</button>
+        </form>
+
+        <p class="auth-footer">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
