@@ -1,8 +1,91 @@
-{% extends "base.html" %}
 {% block content %}
 
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+    background: #f4f6fb;
+    color: #1f2937;
+}
+
+
+.card {
+    max-width: 420px;
+    margin: 120px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+
+.danger-card h2 {
+    color: #dc2626;
+    margin-bottom: 14px;
+}
+
+.danger-card p {
+    margin-bottom: 18px;
+    font-size: 15px;
+    color: #4b5563;
+}
+
+.danger-card strong {
+    display: block;
+    margin-bottom: 22px;
+    font-size: 16px;
+    color: #111827;
+}
+
+
+form {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+
+.btn {
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+
+.btn-outline {
+    border: 2px solid #9ca3af;
+    color: #374151;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: #f3f4f6;
+}
+</style>
+
 <div class="card danger-card">
-    <h2>Delete URL</h2>
+    <h2>🗑️ Delete URL</h2>
 
     <p>Are you sure you want to delete this short URL?</p>
 
@@ -10,7 +93,7 @@
 
     <form method="post">
         {% csrf_token %}
-        <button class="btn btn-danger">Yes, Delete</button>
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
         <a href="{% url 'dashboard' %}" class="btn btn-outline">Cancel</a>
     </form>
 </div>

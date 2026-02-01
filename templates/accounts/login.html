@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+
+
 {% block content %}
 
 <style>
-
 
 .auth-wrapper {
     min-height: calc(100vh - 80px);
@@ -13,7 +13,6 @@
     background: linear-gradient(135deg, #eef2ff, #e0e7ff);
 }
 
-/* Card */
 .auth-card {
     background: #ffffff;
     width: 100%;
@@ -32,7 +31,6 @@
     font-weight: 800;
 }
 
-/* Form */
 .auth-form {
     display: flex;
     flex-direction: column;
@@ -59,7 +57,6 @@
     box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
 }
 
-/* Button */
 .auth-btn {
     margin-top: 8px;
     padding: 14px;
@@ -95,7 +92,16 @@
     text-decoration: underline;
 }
 
-/* Animation */
+.error-message {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 600;
+}
+
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -107,7 +113,6 @@
     }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
     .auth-card {
         padding: 28px;
@@ -115,22 +120,34 @@
 }
 </style>
 
+{% block main-content %}
 <div class="auth-wrapper">
     <div class="auth-card">
         <h2>Welcome Back</h2>
 
+        
+        {% if form.non_field_errors %}
+            <div class="error-message">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <form method="post" class="auth-form">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="username" placeholder="Username" required id="id_username">
+            <input type="password" name="password" placeholder="Password" required id="id_password">
 
             <button type="submit" class="auth-btn">Login</button>
         </form>
-                <p class="auth-footer">
+
+        <p class="auth-footer">
             Don't have an account?
             <a href="{% url 'register' %}">Register</a>
         </p>
     </div>
 </div>
+{% endblock %}
 
 {% endblock %}

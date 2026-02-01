@@ -9,9 +9,13 @@ from django.shortcuts import get_object_or_404
 from django.db.models import F
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+
+
 
 # Create your views here.
-
+@method_decorator(never_cache, name='dispatch')
 class DashboardView(LoginRequiredMixin, View):
     template_name = 'shortner/dashboard.html'
 
